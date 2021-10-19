@@ -5,6 +5,8 @@ from urllib import request, parse, error
 
 def main():
     global cog_endpoint
+
+    
     global cog_key
 
 
