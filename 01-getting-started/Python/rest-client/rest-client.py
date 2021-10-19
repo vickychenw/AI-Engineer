@@ -7,6 +7,7 @@ def main():
     global cog_endpoint
     global cog_key
 
+
     try:
         # Get Configuration Settings
         load_dotenv(dotenv_path='../.env')
