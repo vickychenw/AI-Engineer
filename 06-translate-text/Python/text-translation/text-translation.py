@@ -1,6 +1,10 @@
 from dotenv import load_dotenv
 import os
 import requests, json
+import certifi
+#certifi.where()
+print(certifi.where())#locate where the *.pem is stored
+#/Users/chevick/opt/anaconda3/lib/python3.8/site-packages/certifi/cacert.pem
 
 def main():
     global translator_endpoint
@@ -9,10 +13,12 @@ def main():
 
     try:
         # Get Configuration Settings
-        load_dotenv()
+        load_dotenv(dotenv_path='./.env')
+        #cog_endpoint = os.getenv('COG_SERVICE_ENDPOINT')
         cog_key = os.getenv('COG_SERVICE_KEY')
         cog_region = os.getenv('COG_SERVICE_REGION')
-        translator_endpoint = 'https://api.cognitive.microsofttranslator.com'
+        translator_endpoint = 'https://api.cognitive.microsofttranslator.com'        
+        #translator_endpoint = 'https://translator-912.cognitiveservices.azure.com/'
 
         # Analyze each text file in the reviews folder
         reviews_folder = 'reviews'
@@ -39,6 +45,31 @@ def GetLanguage(text):
     language = 'en'
 
     # Use the Translator detect function
+    path = '/detect'
+    url = translator_endpoint + path
+
+    # Build the request
+    params = {
+        'api-version': '3.0'
+    }
+
+    headers = {
+    'Ocp-Apim-Subscription-Key': cog_key,
+    'Ocp-Apim-Subscription-Region': cog_region,
+    'Content-type': 'application/json'
+    }
+
+    body = [{
+        'text': text
+    }]
+
+    # Send the request and get response
+    request = requests.post(url, params=params, headers=headers, json=body)
+    response = request.json()
+
+    # Parse JSON array and get language
+    language = response[0]["language"]
+
 
 
     # Return the language
@@ -48,6 +79,33 @@ def Translate(text, source_language):
     translation = ''
 
     # Use the Translator translate function
+    path = '/translate'
+    url = translator_endpoint + path
+
+    # Build the request
+    params = {
+        'api-version': '3.0',
+        'from': source_language,
+        'to': ['en']
+    }
+
+    headers = {
+        'Ocp-Apim-Subscription-Key': cog_key,
+        'Ocp-Apim-Subscription-Region': cog_region,
+        'Content-type': 'application/json'
+    }
+
+    body = [{
+        'text': text
+    }]
+
+    # Send the request and get response
+    request = requests.post(url, params=params, headers=headers, json=body)
+    response = request.json()
+
+    # Parse JSON array and get translation
+    translation = response[0]["translations"][0]["text"]
+
 
 
     # Return the translation
