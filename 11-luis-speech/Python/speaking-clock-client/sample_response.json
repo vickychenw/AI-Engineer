@@ -1,0 +1,25 @@
+(base) ➜  speaking-clock-client git:(main) ✗ python speaking-clock-client.py
+Please say your request...
+result= IntentRecognitionResult(result_id=0007846c77824471815f8120d842f649, text="What is the time in London?", intent_id=GetTime, reason=ResultReason.RecognizedIntent)
+Query: What is the time in London?
+Intent: GetTime
+JSON Response:
+{
+  "query": "what is the time in london",
+  "topScoringIntent": {
+    "intent": "GetTime",
+    "score": 0.95546204
+  },
+  "entities": [
+    {
+      "entity": "london",
+      "type": "Location",
+      "startIndex": 20,
+      "endIndex": 25,
+      "score": 0.75760823
+    }
+  ]
+}
+
+Location: london
+1:21

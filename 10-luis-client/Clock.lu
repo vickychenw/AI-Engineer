@@ -1,6 +1,6 @@
 
 > LUIS application information
-> !# @app.name = clock
+> !# @app.name = Imported clock
 > !# @app.versionId = 0.1
 > !# @app.culture = en-us
 > !# @app.luis_schema_version = 7.0.0

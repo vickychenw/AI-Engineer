@@ -12,7 +12,7 @@ def main():
         global speech_config
 
         # Get Configuration Settings
-        load_dotenv(dotenv_path='.env')
+        load_dotenv(dotenv_path='./.env')
         cog_key = os.getenv('COG_SERVICE_KEY')
         cog_region = os.getenv('COG_SERVICE_REGION')
 
@@ -60,12 +60,25 @@ def TellTime():
 
 
      # Configure speech synthesis
+    speech_config.speech_synthesis_voice_name = 'en-GB-RyanNeural' 
+    
+    #Does Speech to Text, but no translation
     speech_synthesizer = speech_sdk.SpeechSynthesizer(speech_config)
 
     
 
-     # Synthesize spoken output
-    speak = speech_synthesizer.speak_text_async(response_text).get()
+     # Synthesize spoken output   
+
+    responseSsml = " \
+     <speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='en-US'> \
+         <voice name='en-GB-LibbyNeural'> \
+             {} \
+             <break strength='weak'/> \
+             Time to end this lab! \
+         </voice> \
+     </speak>".format(response_text)
+    speak = speech_synthesizer.speak_ssml_async(responseSsml).get()
+    #speak = speech_synthesizer.speak_text_async(response_text).get()
     if speak.reason != speech_sdk.ResultReason.SynthesizingAudioCompleted:
         print(speak.reason)
 

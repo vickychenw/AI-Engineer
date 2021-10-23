@@ -2,9 +2,9 @@ from dotenv import load_dotenv
 import os
 import requests, json
 import certifi
-#certifi.where()
-print(certifi.where())#locate where the *.pem is stored
-#/Users/chevick/opt/anaconda3/lib/python3.8/site-packages/certifi/cacert.pem
+
+#print(certifi.where())#locate where the *.pem is stored
+
 
 def main():
     global translator_endpoint
@@ -17,7 +17,11 @@ def main():
         #cog_endpoint = os.getenv('COG_SERVICE_ENDPOINT')
         cog_key = os.getenv('COG_SERVICE_KEY')
         cog_region = os.getenv('COG_SERVICE_REGION')
-        translator_endpoint = 'https://api.cognitive.microsofttranslator.com'        
+
+        #text translation
+        translator_endpoint = 'https://api.cognitive.microsofttranslator.com'    
+
+        #document translation    
         #translator_endpoint = 'https://translator-912.cognitiveservices.azure.com/'
 
         # Analyze each text file in the reviews folder
@@ -47,6 +51,7 @@ def GetLanguage(text):
     # Use the Translator detect function
     path = '/detect'
     url = translator_endpoint + path
+    #print ('path = ', url, text)
 
     # Build the request
     params = {
@@ -64,13 +69,11 @@ def GetLanguage(text):
     }]
 
     # Send the request and get response
-    request = requests.post(url, params=params, headers=headers, json=body)
+    request = requests.post(url, params=params, headers=headers, json=body, verify=False)
     response = request.json()
 
     # Parse JSON array and get language
     language = response[0]["language"]
-
-
 
     # Return the language
     return language
@@ -100,13 +103,11 @@ def Translate(text, source_language):
     }]
 
     # Send the request and get response
-    request = requests.post(url, params=params, headers=headers, json=body)
+    request = requests.post(url, params=params, headers=headers, json=body, verify=False)
     response = request.json()
 
     # Parse JSON array and get translation
     translation = response[0]["translations"][0]["text"]
-
-
 
     # Return the translation
     return translation

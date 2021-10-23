@@ -64,9 +64,6 @@ def main():
                 for linked_entity in entities:
                     print('\t{} ({})'.format(linked_entity.name, linked_entity.url))
 
-
-
-
     except Exception as ex:
         print(ex)
 

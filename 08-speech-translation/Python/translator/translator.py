@@ -5,15 +5,13 @@ import os
 # Import namespaces
 import azure.cognitiveservices.speech as speech_sdk
 
-
-
 def main():
     try:
         global speech_config #region and key
         global translation_config #
 
         # Get Configuration Settings
-        load_dotenv(dotenv_path='.env')
+        load_dotenv(dotenv_path='./.env')
         cog_key = os.getenv('COG_SERVICE_KEY')
         cog_region = os.getenv('COG_SERVICE_REGION')
 
@@ -25,12 +23,8 @@ def main():
         translation_config.add_target_language('hi')
         print('Ready to translate from',translation_config.speech_recognition_language)
 
-
-
          # Configure speech
         speech_config = speech_sdk.SpeechConfig(cog_key, cog_region)
-
-
 
         # Get user input
         targetLanguage = ''
@@ -53,23 +47,21 @@ def Translate(targetLanguage):
     #audioFile = 'station.wav'
     #playsound(audioFile)
 
+    #Implement Speech Translation
+
     #audio_config = speech_sdk.AudioConfig(filename=audioFile)
     audio_config = speech_sdk.AudioConfig(use_default_microphone=True)
     translator = speech_sdk.translation.TranslationRecognizer(translation_config, audio_config)
     print("Getting speech from file...")
-    result = translator.recognize_once_async().get()
+
+    #take input from speech and translate
+    result = translator.recognize_once_async().get() 
     print('Translating "{}"'.format(result.text))
     translation = result.translations[targetLanguage]
     print(translation)
 
 
-
-    
-
-
-
-
-     # Synthesize translation
+     # Synthesize translation - which voice to use for each specified language
     voices = {
             "fr": "fr-FR-HenriNeural",
             "es": "es-ES-ElviraNeural",
