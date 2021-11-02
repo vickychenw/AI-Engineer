@@ -1,0 +1,3 @@
+curl -X POST https://textanalytics-912-vc.cognitiveservices.azure.com/qnamaker/v5.0-preview.2/knowledgebases/baf0df92-5ddf-4d4e-b697-308e7ce5fb7d/generateAnswer -H "Ocp-Apim-Subscription-Key: b1c76b2b0e7e45f1a96c6144566349eb" -H "Content-type: application/json" -d "{'question':'<Your question>'}"
+
+curl -X POST https://textanalytics-912-vc.cognitiveservices.azure.com/qnamaker/v5.0-preview.2/knowledgebases/baf0df92-5ddf-4d4e-b697-308e7ce5fb7d/generateAnswer -H "Ocp-Apim-Subscription-Key: b1c76b2b0e7e45f1a96c6144566349eb" -H "Content-type: application/json" -d "{'question':'Tell me about certification.'}"

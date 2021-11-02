@@ -11,7 +11,7 @@ def main():
     try: 
     
         # Get configuration settings 
-        load_dotenv()
+        load_dotenv(dotenv_path='./.env')
         form_endpoint = os.getenv('FORM_ENDPOINT')
         form_key = os.getenv('FORM_KEY')
         
