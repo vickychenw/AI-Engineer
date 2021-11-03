@@ -7,7 +7,7 @@ def main():
 
     try:
         # Get Configuration Settings
-        load_dotenv()
+        load_dotenv(dotenv_path='./.env')
         prediction_endpoint = os.getenv('PredictionEndpoint')
         prediction_key = os.getenv('PredictionKey')
         project_id = os.getenv('ProjectID')
@@ -17,8 +17,9 @@ def main():
         credentials = ApiKeyCredentials(in_headers={"Prediction-key": prediction_key})
         prediction_client = CustomVisionPredictionClient(endpoint=prediction_endpoint, credentials=credentials)
 
+        
         # Classify test images
-        for image in os.listdir('test-images'):
+        for image in os.listdir('test-images'):            
             image_data = open(os.path.join('test-images',image), "rb").read()
             results = prediction_client.classify_image(project_id, model_name, image_data)
 
