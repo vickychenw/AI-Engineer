@@ -10,7 +10,7 @@ from azure.search.documents import SearchClient
 app = Flask(__name__)
 
 # Azure Search constants
-load_dotenv()
+load_dotenv(dotenv_path='./.env')
 search_endpoint = os.getenv('SEARCH_SERVICE_ENDPOINT')
 search_key = os.getenv('SEARCH_SERVICE_QUERY_KEY')
 search_index = os.getenv('SEARCH_INDEX_NAME')
@@ -21,7 +21,7 @@ def search_query(search_text, filter_by=None, sort_order=None):
 
         # Create a search client
         azure_credential = AzureKeyCredential(search_key)
-        search_client = SearchClient(search_endpoint, search_index, azure_credential)
+        search_client = SearchClient(search_endpoint, search_index, azure_credential, connection_verify=False)
         
 
         # Submit search query

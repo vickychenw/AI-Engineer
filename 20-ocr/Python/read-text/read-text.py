@@ -10,7 +10,6 @@ from azure.cognitiveservices.vision.computervision.models import OperationStatus
 from msrest.authentication import CognitiveServicesCredentials
 
 
-
 def main():
 
     global cv_client
@@ -23,10 +22,7 @@ def main():
 
         # Authenticate Computer Vision client
         credential = CognitiveServicesCredentials(cog_key) 
-        cv_client = ComputerVisionClient(cog_endpoint, credential)
-
-        
-        
+        cv_client = ComputerVisionClient(cog_endpoint, credential)       
 
 
         # Menu for text reading functions
@@ -91,7 +87,9 @@ def GetTextRead(image_file):
 
         # Get the async operation ID so we can check for the results
         operation_location = read_op.headers["Operation-Location"]
+        print('operation_location = ', operation_location)
         operation_id = operation_location.split("/")[-1]
+        print('operation_id = ', operation_id)
 
         # Wait for the asynchronous operation to complete
         while True:
